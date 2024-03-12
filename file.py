@@ -57,6 +57,18 @@ def get_all_pokemon_all_type():
     data = response.json()
     return data["results"]
 
+def get_characteristic_id(pokemon_name):
+    url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_name.lower()}/"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        pokemon_data = response.json()
+        characteristic_id = pokemon_data['id']  # Use the Pokémon ID as the characteristic ID
+        return characteristic_id
+    else:
+        return 0  # Default value if Pokémon not found
+
+
 @app.route('/')
 def dashboard():
     all_type = get_all_pokemon_all_type()
@@ -72,7 +84,7 @@ def search():
     result = get_pokemon_by_name(query)
     if result:
         # Assume characteristic ID 1 for now (you can replace with the actual ID)
-        characteristic_id = 1 #GET_BY_ID_CHARACTER
+        characteristic_id = get_characteristic_id(result['name']) #GET_BY_ID_CHARACTER
         description = get_pokemon_description(characteristic_id)
         result['description'] = description
 
@@ -125,8 +137,10 @@ def get_list_pokemon(type_name):
         pokemon_data = pokemon_response.json()
         # pokemon_details = pokemon_data["pokemon"]
         pokemon_list.append({
+            "id": pokemon_data["id"],
             "name": pokemon_data["name"],
             "image": pokemon_data["sprites"]["front_default"],
+            "image2" : pokemon_data["sprites"]["back_default"],
             "hp": pokemon_data["stats"][0]["base_stat"],
             "attack": pokemon_data["stats"][1]["base_stat"],
             "defense": pokemon_data["stats"][2]["base_stat"]
