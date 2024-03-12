@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokémon List</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Max CP</th>
+            <th>HP</th>
+            <th>Attack</th>
+            <th>Defense</th>
+            <th>Reviews</th>
+        </tr>
+        <!-- Loop through Pokémon data and populate the table -->
+        {% for pokemon in pokemon_list %}
+            <tr>
+                <td>{{ pokemon.name }}</td>
+                <td><img src="{{ pokemon.image_url }}" alt="Pokémon Image"></td>
+                <td>{{ pokemon.max_cp }}</td>
+                <td>{{ pokemon.hp }}</td>
+                <td>{{ pokemon.attack }}</td>
+                <td>{{ pokemon.defense }}</td>
+                <td>{{ pokemon.reviews }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

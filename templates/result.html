@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Result</title>
+    <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Pokémon Result</h1>
+
+    <!-- Display Pokémon details here -->
+    <h2>{{ pokemon['name'] }}</h2>
+    <img src="{{ pokemon['sprites']['front_default'] }}" alt="Pokémon Image">
+    <p>Base Experience: {{ pokemon['base_experience'] }}</p>
+    <p>Description (English): {{ pokemon['description'] }}</p>
+    <p>Stats:</p>
+    <ul>
+        <li>HP: {{ pokemon['stats'][0]['base_stat'] }}</li>
+        <li>Attack: {{ pokemon['stats'][1]['base_stat'] }}</li>
+        <li>Defense: {{ pokemon['stats'][2]['base_stat'] }}</li>
+        <!-- Add more stats as needed -->
+    </ul>
+
+    <!-- Pokémon Rating Form -->
+<form action="/rate" method="post">
+    <input type="hidden" name="pokemon_name" value="{{ pokemon['name'] }}">
+    <label for="rating">Rate this Pokémon:</label>
+    <div class="star-rating">
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star5"></label>
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star4"></label>
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3"></label>
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star2"></label>
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star1"></label>
+    </div>
+    <button type="submit">Submit Rating</button>
+</form>
+
+    <!-- Add more attributes as needed -->
+
+    <!-- Add your JavaScript scripts here -->
+    <!-- <script src="scripts.js"></script> -->
+</body>
+</html>
