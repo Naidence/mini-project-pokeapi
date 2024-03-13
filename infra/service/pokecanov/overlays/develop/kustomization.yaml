@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+  - "../../base"
+resources:
+  # - "configmap.yaml"
+  # - "sealed-secret.yaml"
+images:
+  - name: candraburhanudin15/pokecanov
+    newTag: 1.0.0
+# patchesJson6902:
+#   - target:
+#       group: apps
+#       kind: Deployment
+#       name: regulation-agent
+#       version: v1
+#     path: patch/deploy-patch.yaml

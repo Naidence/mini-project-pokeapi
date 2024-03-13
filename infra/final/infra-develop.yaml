@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pokecanov-develop
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pokecanov-svc
+  namespace: pokecanov-develop
+spec:
+  ports:
+  - port: 80
+    targetPort: 8000
+  selector:
+    app: pokecanov
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-flask
+  namespace: pokecanov-develop
+spec:
+  selector:
+    matchLabels:
+      app: pokecanov
+  template:
+    metadata:
+      labels:
+        app: pokecanov
+    spec:
+      containers:
+      - image: candraburhanudin15/pokecanov:1.0.0
+        imagePullPolicy: Always
+        name: pokecanov
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 1m
+            memory: 1Mi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pokecanov-ingress
+  namespace: pokecanov-develop
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: pokecanov.shamirhusein.my.id
+    http:
+      paths:
+      - backend:
+          service:
+            name: pokecanov-svc
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

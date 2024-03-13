@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-flask
+spec:
+  selector:
+    matchLabels:
+      app: pokecanov
+  template:
+    metadata:
+      labels:
+        app: pokecanov
+    spec:
+      containers:
+      - name: pokecanov
+        image: candraburhanudin15/pokecanov:1.0.0
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Mi"
+            cpu: "1m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000                           
+        # livenessProbe:                            
+        #   httpGet:
+        #     path: "/v1/ping"
+        #     port: 8080
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 30
+        # readinessProbe:
+        #   httpGet:
+        #     path: "/v1/ping"
+        #     port: 8080
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 30
+      # imagePullSecrets:
+      #   - name: melissa-hol-group
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pokecanov-svc
+spec:
+  selector:
+    app: pokecanov
+  ports:
+  - port: 80
+    targetPort: 8000

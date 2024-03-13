@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pokecanov-ingress
+spec:
+  rules:
+  - host: pokecanov.shamirhusein.my.id
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pokecanov-svc
+            port: 
+              number: 80
+  ingressClassName: nginx
