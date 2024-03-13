@@ -1,38 +1,38 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: pokecanov-develop
+  name: mini-project-pokeapi-develop
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pokecanov-svc
-  namespace: pokecanov-develop
+  name: mini-project-pokeapi-svc
+  namespace: mini-project-pokeapi-develop
 spec:
   ports:
   - port: 80
     targetPort: 8000
   selector:
-    app: pokecanov
+    app: mini-project-pokeapi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-flask
-  namespace: pokecanov-develop
+  name: mini-project-pokeapi-flask
+  namespace: mini-project-pokeapi-develop
 spec:
   selector:
     matchLabels:
-      app: pokecanov
+      app: mini-project-pokeapi
   template:
     metadata:
       labels:
-        app: pokecanov
+        app: mini-project-pokeapi
     spec:
       containers:
-      - image: candraburhanudin15/pokecanov:1.0.0
+      - image: razannadhif/mini-project-pokeapi:1.0.0
         imagePullPolicy: Always
-        name: pokecanov
+        name: mini-project-pokeapi
         ports:
         - containerPort: 8000
         resources:
@@ -46,8 +46,8 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pokecanov-ingress
-  namespace: pokecanov-develop
+  name: mini-project-pokeapi-ingress
+  namespace: mini-project-pokeapi-develop
 spec:
   ingressClassName: nginx
   rules:
@@ -56,7 +56,7 @@ spec:
       paths:
       - backend:
           service:
-            name: pokecanov-svc
+            name: mini-project-pokeapi-svc
             port:
               number: 80
         path: /
