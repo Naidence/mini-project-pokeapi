@@ -108,78 +108,11 @@ def rate_pokemon():
     else:
         return "Please provide both a Pokémon name and a rating."
 
-# def post(cls, name):
-#         try:
-#             rules = {
-#                 'star': ['required', 'numeric'], 
-#                 'title': ['required', 'string'],
-#                 'content': ['required', 'string']
-#             }
-#             # messages = {
-#             #     'name.required': 'Yikes! The name is required',
-#             #     'name.alpha': 'Yikes! The name must be a string',
-#             # }
-            
-#             validator = Validator(rules=rules, request=request)
-#             if validator.passes():
-#                 user = PokeReview(
-#                     id = uuid.uuid4(),
-#                     star=request.json['star'],
-#                     title=request.json['title'],
-#                     content=request.json['content'],
-#                     pokemon_name = name,
-#                     user_ip=request.remote_addr,
-#                     user_agent=request.user_agent.string
-#                 )
-#                 db.session.add(user)
-#                 db.session.commit()
-
-#                 return make_response(jsonify({'message': 'success'}), 200)
-#             else:
-#                 return make_response(jsonify(validator.messages()), 400)
-#         except Exception as e:  
-#             current_app.logger.error(traceback.format_exc())
-#             return make_response(jsonify({'error': 'Internal Server Error'}), 500)
-        
-# def get(cls, name):
-#         try:
-#             rules = {
-#                 'name': ['required', 'alpha']
-#             }
-#             messages = {
-#                 'name.required': 'Yikes! The name is required',
-#                 'name.alpha': 'Yikes! The name must be a string',
-#             }
-            
-#             validator = Validator(rules=rules, messages=messages, request={'name': name})
-#             if validator.passes():
-#                 reviews = PokeReview.query.filter_by(pokemon_name=name).all()
-#                 return make_response(jsonify([{
-#                     'id': str(review.id),
-#                     'star': review.star,
-#                     'title': review.title,
-#                     'content': review.content,
-#                     'pokemon_name': review.pokemon_name,
-#                     'user_ip': review.user_ip,
-#                     'user_agent': review.user_agent,
-#                     'created_at': review.created_at,
-#                     'updated_at': review.updated_at
-#                 } for review in reviews]), 200)
-#             else:
-#                 return make_response(jsonify(validator.messages()), 400)
-#         except Exception as e:  
-#             current_app.logger.error(traceback.format_exc())
-#             return make_response(jsonify({'error': 'Internal Server Error'}), 500)
-
 
 def get_pokemon_details(pokemon_url):
     response = requests.get(pokemon_url)
     return response.json()
 
-# def get_all_pokemon_all_type():
-#     response = requests.get("{POKEMON_API_URL}/type?limit=10")  # Adjust limit as needed
-#     data = response.json()
-#     return data["results"]
 
 def get_list_pokemon():
     response = requests.get(f"{POKEMON_API_URL}/type/{id}")
@@ -219,39 +152,6 @@ def filter_by_type(type_name):
 
     except Exception as e:
         return f"Error fetching Pokémon data: {str(e)}"
-
-# @app.route("/filter/type/<type_name>")
-# def filter_by_type(type_name):
-#     try:
-#         all_pokemon = get_all_pokemon_all_type()
-#         # pokemon_list = get_list_pokemon()
-#         filtered_pokemon = []
-
-#         for pokemon in all_pokemon:
-#             details = get_pokemon_details(pokemon["url"])
-#             pokemon_types = [t["type"]["name"] for t in details["types"]]
-            
-#             pokemon_url = pokemon["pokemon"]["url"]
-#             pokemon_response = requests.get(pokemon_url)
-#             pokemon_data = pokemon_response.json()
-            
-#             if type_name.lower() in pokemon_types:
-#                 # Extract relevant data (name, image, stats) and add to filtered_pokemon
-#                 # Example: stats = details["stats"], image_url = details["sprites"]["front_default"]
-#                 stats = details["stats"]
-#                 image_url = pokemon_data["sprites"]["front_default"]
-#                 filtered_pokemon.append({
-#                     "name": pokemon["name"],
-#                     "image": image_url,
-#                     "hp": stats[0]["base_stat"],
-#                     "attack": stats[1]["base_stat"],
-#                     "defense": stats[2]["base_stat"]
-#                 })
-
-#         return render_template("filtered_pokemon.html", pokemon_list=filtered_pokemon)
-
-#     except Exception as e:
-#         return f"Error fetching Pokémon data: {str(e)}"
     
 if __name__ == '__main__':
     app.run(debug=True)
