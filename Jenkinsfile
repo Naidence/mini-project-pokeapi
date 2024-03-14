@@ -16,7 +16,7 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    app = docker.build("razannadhif/minpropokeapi:${env.BUILD_ID}")
+                    app = docker.build("razannadhif/apipoke:${env.BUILD_ID}")
                     }
             }
         }
@@ -40,7 +40,7 @@ pipeline {
                 echo "Deployment started ..."
                 sh 'ls -ltr'
                 sh 'pwd'
-                sh "sed -i 's/minpropokeapi:latest/minpropokeapi:${env.BUILD_ID}/g' deployment.yml"
+                sh "sed -i 's/apipoke:latest/apipoke:${env.BUILD_ID}/g' deployment.yml"
                 step([$class: 'KubernetesEngineBuilder', \
                   projectId: env.PROJECT_ID, \
                   clusterName: env.CLUSTER_NAME, \
