@@ -40,12 +40,12 @@ pipeline {
                 echo "Deployment started ..."
                 sh 'ls -ltr'
                 sh 'pwd'
-                sh "sed -i 's/minpropokeapi:latest/minpropokeapi:${env.BUILD_ID}/g' deployment.yaml"
+                sh "sed -i 's/minpropokeapi:latest/minpropokeapi:${env.BUILD_ID}/g' deployment.yml"
                 step([$class: 'KubernetesEngineBuilder', \
                   projectId: env.PROJECT_ID, \
                   clusterName: env.CLUSTER_NAME, \
                   location: env.LOCATION, \
-                  manifestPattern: 'deployment.yaml', \
+                  manifestPattern: 'deployment.yml', \
                   credentialsId: env.CREDENTIALS_ID, \
                   verifyDeployments: true])
                 }
