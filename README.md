@@ -2,7 +2,7 @@
 
 ## Overview
 
-Mini Projeng bootcam
+Mini Projek bootcamp
 
 The platform is written in Python using Flask (Backend), HTML CSS (Frontend) and MYSQL (Database).
 
@@ -51,5 +51,9 @@ This repository contains a single file (app.py) that has the web service code an
 ## Hosting for Monitoring Tools (Zabbix) by GCP
 url : http://34.87.102.193/zabbix/
 
-## Hosting for pokemon database
-url : SOON!
+## Hosting for pokemon database with kubernetes by GCP
+url : http://34.135.136.37/
+
+## LINK docs planning
+url : https://drive.google.com/file/d/1IHKSaVb7z16O1vEKzpUSGjk3fKtTmU-W/view?usp=sharing
+url : https://miro.com/app/board/uXjVNheuqnM=/
