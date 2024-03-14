@@ -15,7 +15,7 @@ spec:
         app: pokeapi
     spec:
       containers:
-      - image: razannadhif/minpropokeap:latest
+      - image: razannadhif/minpropokeapi:latest
         name: pokeapi
         ports:
         - containerPort: 8080
