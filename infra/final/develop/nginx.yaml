@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minpropokeapi-ingress
+spec:
+  rules:
+  - host: minpropokeapi.shamirhusein.my.id
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: minpropokeapi-svc
+            port: 
+              number: 80
+  ingressClassName: nginx
